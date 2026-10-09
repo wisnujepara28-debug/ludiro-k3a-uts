@@ -1,0 +1,6 @@
+{
+  "name": "MotoParts ID - Toko Sparepart Motor Online",
+  "description": "Marketplace dan webstore sparepart motor terlengkap dengan katalog produk, keranjang belanja, panel admin, verifikasi bukti pembayaran, dan laporan penjualan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

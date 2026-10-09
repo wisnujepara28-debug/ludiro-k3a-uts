@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Products collection: public read and write so seeding & admin stock updates work seamlessly
+    match /products/{productId} {
+      allow read, write: if true;
+    }
+
+    // Orders collection: public read and write for webstore orders, payment proof upload, and admin approval
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    // Customers collection: public read and write for customer profiles
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow read, write: if true;
+    }
+  }
+}

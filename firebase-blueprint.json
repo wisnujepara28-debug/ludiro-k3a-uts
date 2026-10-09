@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Sparepart motor produk katalog",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 150 },
+        "category": { "type": "string", "enum": ["mesin_performa", "pengereman_kaki", "kelistrikan_aksesoris"] },
+        "categoryLabel": { "type": "string", "maxLength": 50 },
+        "price": { "type": "number" },
+        "stock": { "type": "number" },
+        "sku": { "type": "string", "maxLength": 50 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "brand": { "type": "string", "maxLength": 50 },
+        "compatibility": { "type": "string", "maxLength": 150 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "rating": { "type": "number" },
+        "soldCount": { "type": "number" }
+      },
+      "required": ["name", "category", "price", "stock", "sku"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Transaksi pesanan sparepart pelanggan",
+      "type": "object",
+      "properties": {
+        "orderNumber": { "type": "string", "maxLength": 64 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerEmail": { "type": "string", "maxLength": 150 },
+        "customerPhone": { "type": "string", "maxLength": 30 },
+        "shippingAddress": { "type": "string", "maxLength": 300 },
+        "shippingCity": { "type": "string", "maxLength": 100 },
+        "shippingMethod": { "type": "string", "maxLength": 50 },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "subtotal": { "type": "number" },
+        "shippingCost": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "status": {
+          "type": "string",
+          "enum": ["menunggu_pembayaran", "menunggu_approval", "diproses", "dikirim", "selesai", "dibatalkan"]
+        },
+        "paymentProofUrl": { "type": "string" },
+        "adminNotes": { "type": "string", "maxLength": 300 },
+        "trackingNumber": { "type": "string", "maxLength": 100 }
+      },
+      "required": ["orderNumber", "userId", "customerName", "customerEmail", "customerPhone", "totalAmount", "status"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Profil pelanggan dan riwayat aktivitas",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "address": { "type": "string", "maxLength": 300 },
+        "totalOrders": { "type": "number" },
+        "totalSpent": { "type": "number" }
+      },
+      "required": ["userId", "name", "email"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Katalog 12 produk sparepart motor"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Semua pesanan belanja pelanggan dengan status dan bukti pembayaran"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Data pelanggan terdaftar"
+    },
+    "/admins/{adminId}": {
+      "schema": "Customer",
+      "description": "Daftar ID pengguna yang memiliki hak akses administrator"
+    }
+  }
+}
